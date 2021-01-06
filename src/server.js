@@ -9,6 +9,7 @@ const cors = require("cors");
 
 // import routes
 const authRoutes = require("./routes/auth.routes");
+const postRoutes = require("./routes/posts.router");
 
 env.config();
 //Midellware
@@ -37,6 +38,7 @@ if (process.env.NODE_ENV === "development") {
 }
 app.use(express.json());
 app.use("/api", authRoutes);
+app.use("/api", postRoutes);
 app.listen(process.env.API_PORT, () => {
   console.log(`Server started on ${process.env.API_PORT}`);
 });

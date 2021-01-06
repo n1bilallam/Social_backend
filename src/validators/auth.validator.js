@@ -22,6 +22,11 @@ exports.validateSigninRequest = [
     ),
 ];
 
+exports.validatePost = [
+  check("title").notEmpty().withMessage("Title is required"),
+  check("description").notEmpty().withMessage("Description is required"),
+];
+
 exports.isRequestValidated = (req, res, next) => {
   const errorFormater = ({ msg }) => {
     return `${msg}`;
