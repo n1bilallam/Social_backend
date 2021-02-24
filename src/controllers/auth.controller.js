@@ -15,16 +15,17 @@ exports.signup = (req, res) => {
           .status(400)
           .json({ message: "User Alerady exist with that email" });
       }
-      const { firstName, lastName, email, password } = req.body;
+      const { fullName, userName, email, password } = req.body;
       const hash_password = await bcrypt.hash(password, 12);
       const _user = new User({
-        firstName,
-        lastName,
+        fullName,
+        userName,
         email,
         hash_password,
       });
       _user.save((error, user) => {
-        if (error) return res.status(400).json({ error });
+        if (error)
+          return res.status(400).json({ error: "something went wrong" });
         if (user) {
           const token = generateJWTToken(user._id);
           return res.status(201).json({
@@ -66,4 +67,11 @@ exports.signin = (req, res) => {
     .catch((error) => {
       console.log(error);
     });
+};
+
+exports.signout = (req, res) => {
+  res.clearCookie("token");
+  res.status(200).json({
+    message: "Signout successfully ...",
+  });
 };

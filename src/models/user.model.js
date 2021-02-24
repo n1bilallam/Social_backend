@@ -2,12 +2,12 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const userSchema = new mongoose.Schema(
   {
-    firstName: {
+    fullName: {
       type: String,
       required: true,
       trim: true,
     },
-    lastName: {
+    userName: {
       type: String,
       required: true,
       trim: true,
@@ -26,9 +26,9 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-userSchema.virtual("fullName").get(function () {
-  return `${this.firstName} ${this.lastName}`;
-});
+// userSchema.virtual("fullName").get(function () {
+//   return `${this.firstName} ${this.lastName}`;
+// });
 
 userSchema.methods = {
   authanticate: async function (password) {

@@ -1,5 +1,9 @@
 const express = require("express");
-const { createPost, getAllPosts } = require("../controllers/posts.controller");
+const {
+  createPost,
+  getAllPosts,
+  myPosts,
+} = require("../controllers/posts.controller");
 const { requireSignin } = require("../middlewares");
 const {
   validatePost,
@@ -17,5 +21,6 @@ router.post(
 );
 
 router.get("/getallposts", getAllPosts);
+router.get("/myposts", requireSignin, myPosts);
 
 module.exports = router;
